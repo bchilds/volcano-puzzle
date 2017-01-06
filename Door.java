@@ -1,12 +1,10 @@
 package volcano;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Door {
+public class Door{
     //define variables
     //door has a state, open or closed (true or false). Doors start closed.
     //door needs a regex pattern for open/closed
-    //door has coordinates for top-left pixel to place green square image on open state
+    //door has coordinates for top-left pixel to place green square image on open state?
     Boolean doorState;
     String pattern;
 
@@ -15,27 +13,32 @@ public class Door {
         doorState = false;
     }
 
+    public Door(String pat){
+        doorState = false;
+        pattern = pat;
+    }
+
     //create door as specific boolean
     public Door(boolean bool){
         doorState = bool;
     }
 
+    //get door state. Will be used for showing green square
     public boolean getState() {
         return doorState;
     }
 
-    public void changeState() {
-        //either opens or closes a door
-        doorState = !doorState;
+    public void setState(Boolean b) {
+        //sets door to open or closed
+        doorState = b;
     }
 
-    public void setPattern(String pat){
-        pattern = pat;
-    }
 
-    public void checkPattern(String pat){
-        assert(pattern != null); //pattern should never be null by this point
+    public Boolean checkPattern(String orbLogic, String pat){
+        //insert logic to check orbLogic against pattern, character by character. Switch? 2, 1, 0
+        //be recursive?
 
+        return match;
     }
 
 }
