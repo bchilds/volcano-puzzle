@@ -33,13 +33,19 @@ public class Orb{
         orbState = orbButton.isSelected();
     }
 
+    public JToggleButton getOrbButton(){
+        return orbButton;
+    }
+
     class OrbButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
             //change this orb to be the state that the button is in
             changeOrbState();
+            //System.out.println(orbState);
             //make the puzzle this orb belongs to update all the doors
             inPuzzle.CheckDoors();
+            inPuzzle.theUI.RefreshMap();
         }
     }
 }

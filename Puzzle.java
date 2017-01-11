@@ -17,18 +17,51 @@ public class Puzzle {
     ArrayList<Orb> orbList;
     int numDoors;
     int numOrbs;
+    int[] xes = new int[8];
+    int[] yes = new int[8];
+    PuzzleUI theUI;
 
-    public Puzzle(ArrayList<String> strings){ //will always have an array of strings to unlock doors
+    public Puzzle(ArrayList<String> strings, PuzzleUI puzUI){ //will always have an array of strings to unlock doors
+        //x and y coords for greenboxes in doors
+
+        xes[0] = 555;
+        xes[1] = 530;
+        xes[2] = 655;
+        xes[3] = 804;
+        xes[4] = 878;
+        xes[5] = 929;
+        xes[6] = 953;
+        xes[7] = 682;
+
+        yes[0] = 282;
+        yes[1] = 331;
+        yes[2] = 357;
+        yes[3] = 305;
+        yes[4] = 380;
+        yes[5] = 281;
+        yes[6] = 357;
+        yes[7] = 381;
+
         numDoors = strings.size();
         numOrbs = strings.get(0).length();
         doorList = new ArrayList<Door>(numDoors);
-        for(int i = 0; i<numDoors-1;i++){
-            doorList.add(new Door(strings.get(i))); //create door with pattern to unlock it
+        for(int i = 0; i<numDoors;i++){
+            doorList.add(new Door(strings.get(i),xes[i],yes[i])); //create door with pattern to unlock it
         }
         orbList = new ArrayList<Orb>(numOrbs);
-        for(int j = 0; j<numOrbs-1;j++){
-            orbList.add(new Orb("Orb " + j, false,this)); //all orbs false by default
+        for(int j = 0; j<numOrbs;j++){
+            if(j==6){
+                orbList.add(new Orb("Orb " + j, true, this)); //green orb true by default
+            } else {
+                orbList.add(new Orb("Orb " + j, false, this)); //all orbs false by default
+            }
         }
+
+        theUI = puzUI;
+    }
+
+    public ArrayList<Door> returnDoors(){
+        return doorList;
     }
 
     public void GetLogic(){
@@ -41,8 +74,13 @@ public class Puzzle {
     public void CheckDoors(){
         GetLogic();
         for (Door door: doorList) {
-            door.checkPattern(logic, door.pattern);
+            door.setState(true); //resets to true, will be invalidated quickly if pattern mismatch
+            door.checkPattern(0, logic, door.pattern);
+            if(door.getState()){
+                System.out.println("Door Open!");
+            }
         }
+
     }
 
 }

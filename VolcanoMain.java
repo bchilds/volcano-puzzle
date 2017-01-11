@@ -18,10 +18,14 @@ public class VolcanoMain {
         doorPatterns.add("*00*1*111*");
         doorPatterns.add("0*11******");
 
+
         //Create new puzzle using the hard-coded patterns.
         //Puzzle creates doors and orbs based on the patterns provided.
-        Puzzle thePuzzle = new Puzzle(doorPatterns);
-
+        PuzzleUI theWindow = new PuzzleUI();
+        Puzzle thePuzzle = new Puzzle(doorPatterns,theWindow);
+        theWindow.puzzleInit(thePuzzle);
+        theWindow.addButtons(thePuzzle.orbList);
+        theWindow.frame.setVisible(true);
     }
 
 }
