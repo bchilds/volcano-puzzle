@@ -60,10 +60,6 @@ public class Puzzle {
         theUI = puzUI;
     }
 
-    public ArrayList<Door> returnDoors(){
-        return doorList;
-    }
-
     public void GetLogic(){
         logic = ""; //clears logic left over from previous state
         for(Orb orb: orbList){//for each orb in the array, get its state and add it on to the string
@@ -75,12 +71,10 @@ public class Puzzle {
         GetLogic();
         for (Door door: doorList) {
             door.setState(true); //resets to true, will be invalidated quickly if pattern mismatch
-            door.checkPattern(0, logic, door.pattern);
-            if(door.getState()){
-                System.out.println("Door Open!");
-            }
+            door.checkPattern(logic, door.pattern);
+            //System.out.println(door.getState());
         }
-
+        theUI.RefreshMap(doorList);
     }
 
 }

@@ -42,10 +42,8 @@ public class Orb{
         public void actionPerformed(ActionEvent e){
             //change this orb to be the state that the button is in
             changeOrbState();
-            //System.out.println(orbState);
             //make the puzzle this orb belongs to update all the doors
             inPuzzle.CheckDoors();
-            inPuzzle.theUI.RefreshMap();
         }
     }
 }

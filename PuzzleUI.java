@@ -18,6 +18,7 @@ public class PuzzleUI {
     GridBagConstraints gbc;
     Puzzle thePuzzle;
     MapPanel theMap;
+    ArrayList<Door> doors;
 
     //Init method, for use post-constructor
     public void puzzleInit(Puzzle puz){
@@ -42,33 +43,33 @@ public class PuzzleUI {
         }
     }
 
+ /*   public void printUIDoorState(){
+        for(Door door : thePuzzle.returnDoors()){
+            System.out.println(door.getState());
+        }
+    }*/
+
     class MapPanel extends JPanel {
         @Override
         public void paintComponent(Graphics g) { //new thoughts - need way to account for doors being open or closed here
-            /*Image map = new ImageIcon("src/volcano/VolcPuz.png").getImage();
-            g.drawImage(map, 105, 10, this);*/
-            for(Door door : thePuzzle.returnDoors()) {
-                g.setColor(Color.GREEN);
-                g.drawRect(door.getDoorX(), door.getDoorY(), 23, 23);
-                System.out.println(door.getDoorX() + " " + door.getDoorY());
-            }
+            Image map = new ImageIcon("src/volcano/VolcPuz.png").getImage();
+            g.drawImage(map, 105, 10, this);
 
             //draw green rectangles for open doors
-            for(Door door : thePuzzle.returnDoors()){
-                if(door.getState()){
-                    g.setColor(Color.GREEN);
-                    g.drawRect(door.getDoorX(),door.getDoorY(),23,23);
+            if (doors != null) {
+                for (Door door : doors) {
+                    if (door.getState()) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(door.getDoorX() - 125, door.getDoorY() - 138, 25, 25);
+                    }
                 }
             }
         }
     }
 
-    public void RefreshMap(){
-        System.out.println("Refresh");
-        frame.remove(theMap);
-        theMap = new MapPanel();
-        frame.getContentPane().add(BorderLayout.CENTER, theMap);
-        frame.revalidate();
-        frame.repaint();
+    public void RefreshMap(ArrayList<Door> doors){
+        //System.out.println("Refresh");
+        this.doors = doors;
+        theMap.repaint();
     }
 }
